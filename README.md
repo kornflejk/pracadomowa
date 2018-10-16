@@ -6,7 +6,7 @@ Konwencja nazewnicza
 
 ##### Resource Group:
 	TypUslugi/NazwaAplikacji/NazwaProjektu + RG + _środowisko
-	_ przykłady  BIRG_Prod  BIRG_Test HubRG_Test  NavisionRG_Prod SAPRG_Test _
+	przykłady  BIRG_Prod  BIRG_Test HubRG_Test  NavisionRG_Prod SAPRG_Test
 
 ##### Vnet:
 	TypUslugi/NazwaAplikacji/NazwaProjektu + VnetXX + _środowisko
