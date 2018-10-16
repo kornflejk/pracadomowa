@@ -5,7 +5,7 @@
         "AdminUserName": { 
             "reference": {
                 "keyVault": {
-                    "id": "/subscriptions/359a5dbd-ff78-4afc-ad36-b10b869e6cb9/resourceGroups/Json02/providers/Microsoft.KeyVault/vaults/mgi-vault"
+                    "id": "/subscriptions/<id>/resourceGroups/<RGname>/providers/Microsoft.KeyVault/vaults/<VaultName>"
                 },
                 "secretName": "AdminUsername"
             } 
@@ -13,7 +13,7 @@
         "AdminPassword": { 
             "reference": {
                 "keyVault": {
-                    "id": "/subscriptions/359a5dbd-ff78-4afc-ad36-b10b869e6cb9/resourceGroups/Json02/providers/Microsoft.KeyVault/vaults/mgi-vault"
+                    "id": "/subscriptions/<id>/resourceGroups/<RGname>/providers/Microsoft.KeyVault/vaults/<VaultName>"
                 },
                 "secretName": "MasterPassword"
             } 
