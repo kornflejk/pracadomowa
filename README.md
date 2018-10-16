@@ -1,8 +1,6 @@
 # Zadania z tygodnia 3
 
-## 3.1
-
-Konwencja nazewnicza
+## 3.1 Konwencja nazewnicza
 
 ##### Resource Group:
 	TypUslugi/NazwaAplikacji/NazwaProjektu + RG + _środowisko
