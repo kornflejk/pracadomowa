@@ -269,7 +269,7 @@
         "PublicIP02": "[concat(parameters('Vm02Name'), '-PIP')]",
         "Subnet01NsgName": "[concat(variables('Vnet01Subnet1Name'), '-NSG')]",
         "Subnet02NsgName": "[concat(variables('Vnet01Subnet2Name'), '-NSG')]",
-        "StorageName": "[concat('vmdatastorage', uniqueString(resourceGroup().id))]",
+        "StorageName": "[concat('vmdata', uniqueString(resourceGroup().id))]",
         "StorageType": "Standard_LRS",
         "Vm01SubnetRef": "[concat(variables('VnetID'), '/subnets/', variables('Vnet01Subnet1Name'))]",
         "Vm01NicName": "[concat(parameters('Vm01Name'), '-NIC')]",
