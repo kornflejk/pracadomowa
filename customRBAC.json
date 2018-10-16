@@ -9,9 +9,7 @@
     			"Microsoft.Compute/virtualMachines/powerOff/action",
 			"Microsoft.Support/*"
                 ],
-    "NotActions":  [
- 
-                   ],
+    "NotActions":  [],
     "AssignableScopes":  [
                              "/subscriptions/{subscriptionId1}"
                          ]
