@@ -4,7 +4,7 @@
 
 Konwencja nazewnicza
 Resource Group:
-	TypUslugi/NazwaAplikacji/NazwaProjektu + RG + _środowisko
+	```TypUslugi/NazwaAplikacji/NazwaProjektu + RG + _środowisko```
 	*przykłady  BIRG_Prod  BIRG_Test HubRG_Test  NavisionRG_Prod SAPRG_Test*
 
 Vnet
