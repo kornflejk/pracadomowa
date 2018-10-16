@@ -1,6 +1,6 @@
-## Zadania z tygodnia 3
+# Zadania z tygodnia 3
 
-# 3.1
+## 3.1
 
 Konwencja nazewnicza
 Resource Group:
