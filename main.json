@@ -8,11 +8,11 @@
         },
         "Vm01Name": {
             "type": "string",
-            "defaultValue": "VM01"
+            "defaultValue": "WebVM01Prod"
         },
         "Vm02Name": {
             "type": "string",
-            "defaultValue": "VM02"
+            "defaultValue": "WebVM02Prod"
         },
         "AdminUsername": {"type": "string"},
         "AdminPassword": {"type": "securestring"}
@@ -269,7 +269,7 @@
         "PublicIP02": "[concat(parameters('Vm02Name'), '-PIP')]",
         "Subnet01NsgName": "[concat(variables('Vnet01Subnet1Name'), '-NSG')]",
         "Subnet02NsgName": "[concat(variables('Vnet01Subnet2Name'), '-NSG')]",
-        "StorageName": "[concat('storage', uniqueString(resourceGroup().id))]",
+        "StorageName": "[concat('vmdatastorage', uniqueString(resourceGroup().id))]",
         "StorageType": "Standard_LRS",
         "Vm01SubnetRef": "[concat(variables('VnetID'), '/subnets/', variables('Vnet01Subnet1Name'))]",
         "Vm01NicName": "[concat(parameters('Vm01Name'), '-NIC')]",
