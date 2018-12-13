@@ -53,7 +53,7 @@
     "variables": {
         "ImagePublisher": "MicrosoftWindowsServer",
         "ImageOffer": "WindowsServer",
-        "WindowsSku" : "2012-Datacenter-smalldisk",
+        "WindowsSku" : "2016-Datacenter",
         "VmSize": "Standard_D1_v2",
         "ContainerName": "vhds",
         "VmOSDiskName": "[concat(parameters('VmName'), '-OSdisk')]"
