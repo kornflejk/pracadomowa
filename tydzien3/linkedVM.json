@@ -28,7 +28,7 @@
                     "imageReference": {
                         "publisher": "[variables('ImagePublisher')]",
                         "offer": "[variables('ImageOffer')]",
-                        "sku": "[variables('UbuntuOSVersion')]",
+                        "sku": "[variables('WindowsSku')]",
                         "version": "latest"
                     },
                     "osDisk": {
@@ -51,10 +51,10 @@
         }
     ],
     "variables": {
-        "ImagePublisher": "Canonical",
-        "ImageOffer": "UbuntuServer",
-        "UbuntuOSVersion" : "18.04-LTS",
-        "VmSize": "Standard_D2_v2",
+        "ImagePublisher": "MicrosoftWindowsServer",
+        "ImageOffer": "WindowsServer",
+        "WindowsSku" : "2016-Datacenter",
+        "VmSize": "Standard_D1_v2",
         "ContainerName": "vhds",
         "VmOSDiskName": "[concat(parameters('VmName'), '-OSdisk')]"
     }
