@@ -8,11 +8,11 @@
         },
         "Vm01Name": {
             "type": "string",
-            "defaultValue": "WebVM01Prod"
+            "defaultValue": "VM01"
         },
         "Vm02Name": {
             "type": "string",
-            "defaultValue": "WebVM02Prod"
+            "defaultValue": "VM02"
         },
         "AdminUsername": {"type": "string"},
         "AdminPassword": {"type": "securestring"}
@@ -100,13 +100,49 @@
             }
         },
         {
+            "name": "[variables('Subnet03NsgName')]",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "location": "[parameters('location')]",
+            "apiVersion": "2015-05-01-preview",
+            "properties": {
+                "securityRules": [
+                 {
+                    "name": "http_access",
+                    "properties": {
+                        "priority": 200,
+                        "sourceAddressPrefix": "*",
+                        "protocol": "Tcp",
+                        "destinationPortRange": "80",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*"
+                    }
+                 },
+                 {
+                    "name": "ssh_access",
+                    "properties": {
+                        "priority": 300,
+                        "sourceAddressPrefix": "*",
+                        "protocol": "Tcp",
+                        "destinationPortRange": "20",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*"
+                    }
+                 }
+            ]
+            }
+        },
+        {
             "apiVersion": "2017-05-10",
             "name": "PublicIP01-creation",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri":"https://raw.githubusercontent.com/kornflejk/pracadomowa/master/linkedPIP.json"
+                    "uri":"https://raw.githubusercontent.com/kornflejk/pracadomowa/tydzien9/linkedPIP.json"
                 },
                 "parameters": {
                     "location": {"value": "[parameters('location')]"},
@@ -121,7 +157,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri":"https://raw.githubusercontent.com/kornflejk/pracadomowa/master/linkedPIP.json"
+                    "uri":"https://raw.githubusercontent.com/kornflejk/pracadomowa/tydzien9/linkedPIP.json"
                 },
                 "parameters": {
                     "location": {"value": "[parameters('location')]"},
@@ -136,7 +172,8 @@
             "apiVersion": "2015-06-15",
             "dependsOn": [
                 "[resourceID('Microsoft.Network/networkSecurityGroups/', variables('Subnet01NsgName'))]",
-                "[resourceID('Microsoft.Network/networkSecurityGroups/', variables('Subnet02NsgName'))]"
+                "[resourceID('Microsoft.Network/networkSecurityGroups/', variables('Subnet02NsgName'))]",
+                "[resourceID('Microsoft.Network/networkSecurityGroups/', variables('Subnet03NsgName'))]"
             ],
             "properties": {
                 "addressSpace": {
@@ -162,6 +199,15 @@
                                 "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('Subnet02NsgName'))]"
                             }
                         }
+                    },
+                    {
+                        "name": "[variables('Vnet01Subnet3Name')]",
+                        "properties": {
+                            "addressPrefix": "[variables('Vnet01Subnet3Prefix')]",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('Subnet03NsgName'))]"
+                            }
+                        }
                     }
                 ]
             }
@@ -182,7 +228,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": { "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('PublicIP01'))]" },
-                            "subnet": {"id": "[variables('Vm01SubnetRef')]"}
+                            "subnet": {"id": "[variables('Vm02SubnetRef')]"}
                         }
                     }
                 ]
@@ -221,7 +267,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri":"https://raw.githubusercontent.com/kornflejk/pracadomowa/master/linkedVM.json"
+                    "uri":"https://pracadomowa.blob.core.windows.net/week3/linkedVM.json"
                 },
                 "parameters": {
                     "VmName":{"value": "[parameters('Vm01Name')]"},
@@ -244,7 +290,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri":"https://raw.githubusercontent.com/kornflejk/pracadomowa/master/linkedVM.json"
+                    "uri":"https://pracadomowa.blob.core.windows.net/week3/linkedVM.json"
                 },
                 "parameters": {
                     "VmName":{"value": "[parameters('Vm02Name')]"},
@@ -261,15 +307,18 @@
         "Vnet01Name": "Vnet01-Web-Prod",
         "VnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('Vnet01Name'))]",
         "Vnet01Prefix": "10.0.0.0/16",
-        "Vnet01Subnet1Name": "WebSubnet01",
+        "Vnet01Subnet1Name": "Subnet01",
         "Vnet01Subnet1Prefix": "10.0.1.0/24",
-        "Vnet01Subnet2Name": "WebSubnet02",
+        "Vnet01Subnet2Name": "Subnet02",
         "Vnet01Subnet2Prefix": "10.0.2.0/24",
+        "Vnet01Subnet3Name": "Subnet03",
+        "Vnet01Subnet3Prefix": "10.0.3.0/24",
         "PublicIP01": "[concat(parameters('Vm01Name'), '-PIP')]",
         "PublicIP02": "[concat(parameters('Vm02Name'), '-PIP')]",
         "Subnet01NsgName": "[concat(variables('Vnet01Subnet1Name'), '-NSG')]",
         "Subnet02NsgName": "[concat(variables('Vnet01Subnet2Name'), '-NSG')]",
-        "StorageName": "[concat('vmdata', uniqueString(resourceGroup().id))]",
+        "Subnet03NsgName": "[concat(variables('Vnet01Subnet3Name'), '-NSG')]",
+        "StorageName": "week9storage",
         "StorageType": "Standard_LRS",
         "Vm01SubnetRef": "[concat(variables('VnetID'), '/subnets/', variables('Vnet01Subnet1Name'))]",
         "Vm01NicName": "[concat(parameters('Vm01Name'), '-NIC')]",
@@ -277,3 +326,5 @@
         "Vm02NicName": "[concat(parameters('Vm02Name'), '-NIC')]"
     }
 }
+
+
