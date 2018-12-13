@@ -1,0 +1,62 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": { "type": "string" },
+        "VmName": { "type": "string" },
+        "AdminUsername": { "type": "string" },
+        "AdminPassword": { "type": "string" },
+        "VMNIC": { "type": "string" },
+        "StorageName": { "type": "string" }
+    },
+    "resources": [
+        {
+            "name": "[parameters('VmName')]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "location": "[parameters('location')]",
+            "apiVersion": "2015-06-15",
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[variables('VmSize')]"
+                },
+                "osProfile": {
+                    "computerName": "[parameters('VmName')]",
+                    "adminUsername": "[parameters('AdminUsername')]",
+                    "adminPassword": "[parameters('AdminPassword')]"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "[variables('ImagePublisher')]",
+                        "offer": "[variables('ImageOffer')]",
+                        "sku": "[variables('WindowsSku')]",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "[variables('VmOSDiskName')]",
+                        "vhd": {
+                            "uri": "[concat('http://', parameters('StorageName'), '.blob.core.windows.net/', variables('ContainerName'), '/', variables('VmOSDiskName'), '.vhd')]"
+                        },
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[parameters('VMNIC')]"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "variables": {
+        "ImagePublisher": "MicrosoftWindowsServer",
+        "ImageOffer": "WindowsServer",
+        "WindowsSku" : "2012-Datacenter-smalldisk",
+        "VmSize": "Standard_D1_v2",
+        "ContainerName": "vhds",
+        "VmOSDiskName": "[concat(parameters('VmName'), '-OSdisk')]"
+    }
+
+}
