@@ -267,7 +267,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri":"https://pracadomowa.blob.core.windows.net/week3/linkedVM.json"
+                    "uri":"https://pracadomowa.blob.core.windows.net/tydzien9/linkedVM.json"
                 },
                 "parameters": {
                     "VmName":{"value": "[parameters('Vm01Name')]"},
@@ -290,7 +290,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri":"https://pracadomowa.blob.core.windows.net/week3/linkedVM.json"
+                    "uri":"https://pracadomowa.blob.core.windows.net/tydzien9/linkedVM.json"
                 },
                 "parameters": {
                     "VmName":{"value": "[parameters('Vm02Name')]"},
