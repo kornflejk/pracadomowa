@@ -1,0 +1,30 @@
+string System;   
+
+public static void Run(TimerInfo myTimer, ILogger log, out MyQueueItem outputQueueItem)
+{
+        log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
+        TableItem tableItem = new TableItem{
+        PartitionKey = "AzureFunctionPartition",
+        RowKey = Guid.NewGuid().ToString(),
+        Time = DateTime.Now.ToString("hh:mm:ss"),
+        Message = myQueueItem.Message,
+        MessageTime = myQueueItem.Time
+    };
+    outputTable.Add(tableItem);
+    log.LogInformation($"Written to table with partition key: {tableItem.PartitionKey} and RowKey: {tableItem.RowKey}");
+       
+}
+
+public class QueueItem
+{
+    public string Message {get; set;}
+    public string Time {get; set;}
+}
+public class TableItem
+{
+    public string PartitionKey {get; set;}
+    public string RowKey {get; set;}
+    public string Time {get; set;}
+    public string Message {get; set;}
+    public string MessageTime {get; set;}
+}
